@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import styled, { css } from 'styled-components/macro';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { menuData } from '../data/index';
 import { Button } from '.';
 import Bars from '../assets/images/bars.svg';
@@ -9,7 +9,7 @@ const Nav = styled.nav`
   height: 60px;
   display: flex;
   justify-content: space-between;
-  padding: 1rem 2rem;
+  padding: 2rem 1rem;
   z-index: 100;
   position: fixed;
   width: 100%;
@@ -65,8 +65,35 @@ const NavBtn = styled.div`
 `;
 
 const Navbar = ({ toggle }) => {
+  const [navbar, setNavbar] = useState(false);
+  const location = useLocation();
+
+  const changeBackground = () => {
+    if (window.pageYOffset >= 100) {
+      setNavbar(true);
+    } else {
+      setNavbar(false);
+    }
+  };
+
+  useEffect(() => {
+    const watchScroll = () => {
+      window.addEventListener('scroll', changeBackground);
+    };
+
+    watchScroll();
+    return () => {
+      window.removeEventListener('scroll', changeBackground);
+    };
+  }, []);
+
+  let style = {
+    backgroundColor: navbar || location.pathname !== '/' ? '#CD853F' : 'transparent',
+    transition: '0.4s',
+  };
+
   return (
-    <Nav>
+    <Nav style={style}>
       <Logo to="/">LABRADOR</Logo>
       <MenuBars onClick={toggle} />
       <NavMenu>

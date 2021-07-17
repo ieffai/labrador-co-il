@@ -17,6 +17,7 @@ export const Button = styled(Link)`
   align-items: center;
   color: ${({ primary }) => (primary ? '#fff' : '#000d1a')};
   font-size: ${({ big }) => (big ? '20px' : '14px')};
+  border-radius: ${({ round }) => (round ? '50px' : '0px')};
 
   &:hover {
     transform: translateY(-2px);

@@ -3,6 +3,7 @@ import styled, { css } from 'styled-components';
 import { Button } from '../components';
 import { IoMdArrowRoundForward } from 'react-icons/io';
 import { IoArrowForward, IoArrowBack } from 'react-icons/io5';
+import { motion, AnimatePresence } from 'framer-motion';
 
 const HeroSection = styled.section`
   height: 100vh;
@@ -33,8 +34,8 @@ const HeroSlider = styled.div`
   height: 100%;
   display: flex;
   align-items: center;
-  /* justify-content: center; */
-  justify-content: flex-start;
+  justify-content: center;
+  /* justify-content: flex-start; */
   &::before {
     content: '';
     position: absolute;
@@ -53,7 +54,7 @@ const HeroSlider = styled.div`
     );
   }
 `;
-const HeroImage = styled.img`
+const HeroImage = styled(motion.img)`
   position: absolute;
   top: 0;
   left: 0;
@@ -157,31 +158,52 @@ const Hero = ({ slides }) => {
     return null;
   }
 
+  const fadeAnimation = {
+    hidden: { opacity: 0 },
+    visible: { opacity: 1, transition: { duration: 0.8 } },
+    exit: { opacity: 0 },
+  };
   return (
     <HeroSection>
       <HeroWrapper>
-        {slides.map((slide, index) => (
-          <HeroSlide key={index}>
-            {index === current && (
-              <HeroSlider>
-                <HeroImage src={slide.image} alt={slide.alt} />
-                <HeroContent>
-                  <h1>{slide.title}</h1>
-                  <p>{slide.price}</p>
-                  <Button
-                    to={slide.path}
-                    primary="true"
-                    css={`
-                      max-width: 160px;
-                    `}>
-                    {slide.label}
-                    <Arrow />
-                  </Button>
-                </HeroContent>
-              </HeroSlider>
-            )}
-          </HeroSlide>
-        ))}
+        <AnimatePresence>
+          {slides.map((slide, index) => (
+            <HeroSlide key={index}>
+              {index === current && (
+                <HeroSlider>
+                  <HeroImage
+                    src={slide.image}
+                    alt={slide.alt}
+                    initial="hidden"
+                    animate="visible"
+                    exit="exit"
+                    variants={fadeAnimation}
+                  />
+                  <HeroContent>
+                    <h1 data-aos="fade-down" data-aos-duration="600">
+                      {slide.title}
+                    </h1>
+                    <p data-aos="fade-down" data-aos-duration="600" data-aos-delay="200">
+                      {slide.price}
+                    </p>
+                    <Button
+                      to={slide.path}
+                      primary="true"
+                      css={`
+                        max-width: 160px;
+                      `}
+                      data-aos="zoom-out"
+                      data-aos-duration="500"
+                      data-aos-delay="200">
+                      {slide.label}
+                      <Arrow />
+                    </Button>
+                  </HeroContent>
+                </HeroSlider>
+              )}
+            </HeroSlide>
+          ))}
+        </AnimatePresence>
         <SliderButtons>
           <PrevArrow onClick={prevSlide} />
           <NextArrow onClick={nextSlide} />
