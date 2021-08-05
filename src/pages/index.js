@@ -1,19 +1,5 @@
-import React from 'react';
-import { Hero, InfoSection } from '../components';
-import Features from '../components/Features';
-import Listings from '../components/Listings';
-import { infoData, infoDataTwo, slides } from '../data';
-
-const Home = () => {
-  return (
-    <>
-      <Hero slides={slides} />
-      <InfoSection {...infoData} />
-      <Listings />
-      <Features />
-      <InfoSection {...infoDataTwo} />
-    </>
-  );
-};
-
-export default Home;
+export { default as Home } from './Home';
+export { default as About } from './About';
+export { default as Contact } from './Contact';
+export { default as Handlers } from './Handlers';
+export { default as Puppies } from './Puppies';

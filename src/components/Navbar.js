@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import styled, { css } from 'styled-components/macro';
+import logo from '../assets/images/dog.png';
 import { Link, useLocation } from 'react-router-dom';
 import { menuData } from '../data/index';
 import { Button } from '.';
@@ -9,7 +10,7 @@ const Nav = styled.nav`
   height: 60px;
   display: flex;
   justify-content: space-between;
-  padding: 2rem 1rem;
+  padding: 4rem 2rem;
   z-index: 100;
   position: fixed;
   width: 100%;
@@ -26,8 +27,10 @@ const NavLink = css`
 `;
 
 const Logo = styled(Link)`
-  ${NavLink}
-  font-style: italic;
+  ${NavLink};
+  span {
+    margin-left: 15px;
+  }
 `;
 const MenuBars = styled.i`
   display: none;
@@ -88,13 +91,17 @@ const Navbar = ({ toggle }) => {
   }, []);
 
   let style = {
-    backgroundColor: navbar || location.pathname !== '/' ? '#CD853F' : 'transparent',
+    backgroundColor: navbar || location.pathname !== '/' ? '#c7a5ca' : 'transparent',
     transition: '0.4s',
   };
 
   return (
     <Nav style={style}>
-      <Logo to="/">LABRADOR</Logo>
+      <Logo to="/">
+        {' '}
+        <img width="50" src={logo} alt="Kennel Club Logo" />
+        <span>Labrador.co.il</span>
+      </Logo>
       <MenuBars onClick={toggle} />
       <NavMenu>
         {menuData.map((item, index) => (

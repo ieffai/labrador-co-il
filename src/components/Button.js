@@ -2,10 +2,10 @@ import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 
 export const Button = styled(Link)`
-  background: ${({ primary }) => (primary ? '#000d1a' : '#CD853F')};
   white-space: nowrap;
+  opacity: 0.9;
   outline: none;
-  border: none;
+  border: 1px solid white;
   min-width: 100px;
   max-width: 200px;
   cursor: pointer;
@@ -17,9 +17,10 @@ export const Button = styled(Link)`
   align-items: center;
   color: ${({ primary }) => (primary ? '#fff' : '#000d1a')};
   font-size: ${({ big }) => (big ? '20px' : '14px')};
-  border-radius: ${({ round }) => (round ? '50px' : '0px')};
+  border-radius: 50px;
 
   &:hover {
-    transform: translateY(-2px);
+    transform: scale(1.05);
+    opacity: 1;
   }
 `;
